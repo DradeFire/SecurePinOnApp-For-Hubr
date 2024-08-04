@@ -10,7 +10,8 @@ class AdminReceiver : DeviceAdminReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         val action = intent.action
         when (action) {
-            ACTION_DEVICE_ADMIN_DISABLE_REQUESTED -> {
+            ACTION_DEVICE_ADMIN_DISABLED,
+            ACTION_DEVICE_ADMIN_DISABLE_REQUESTED, -> {
                 val dpm = context.getSystemService(DevicePolicyManager::class.java)
                 dpm.lockNow()
             }
