@@ -31,6 +31,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
@@ -62,7 +63,7 @@ class PinAccessibilityService : AccessibilityService() {
 
     init {
         scope.launch {
-            while (true) {
+            while (isActive) {
                 delay(15_000)
                 if (dpm.isAdminActive(adminReceiver)) {
                     val intent = Intent(ACTION_SETTINGS)
@@ -75,7 +76,7 @@ class PinAccessibilityService : AccessibilityService() {
         }
 
         scope.launch {
-            while (true) {
+            while (isActive) {
                 delay(4000)
                 packageForPinList = spRepository.packageIdList + settingsList
             }
