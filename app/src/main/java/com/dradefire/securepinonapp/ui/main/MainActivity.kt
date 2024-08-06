@@ -56,7 +56,12 @@ class MainActivity : ComponentActivity() {
     private val spRepository by inject<SharedPreferencesRepository>()
     private val viewModel by viewModel<MainViewModel>()
     private val dpm by lazy { getSystemService(DEVICE_POLICY_SERVICE) as DevicePolicyManager }
-    private val adminReceiver by lazy { ComponentName(applicationContext, AdminReceiver::class.java) }
+    private val adminReceiver by lazy {
+        ComponentName(
+            applicationContext,
+            AdminReceiver::class.java
+        )
+    }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -286,10 +291,12 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    // Проверка необходимых разрешений:
-    // 1. Специальные возможности (AccessibilityService)
-    // 2. Уведомления
-    // 3. Права админа
+    /**
+     * Проверка необходимых разрешений:
+     * 1. Специальные возможности (AccessibilityService)
+     * 2. Уведомления
+     * 3. Права админа
+     */
     private fun checkPermission() {
         val isAccessibilityGranted = isAccessibilityServiceEnabled()
         viewModel.setAccessibilityPermission(isAccessibilityGranted)
